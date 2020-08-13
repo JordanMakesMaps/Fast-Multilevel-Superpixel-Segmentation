@@ -10,8 +10,8 @@ The code can be used as easily as:
 ```python
 LABELS = [] # Must include all possible class labels
 
-img = io.imread('MLC_image.png')
-sparse = pd.read_csv('Formatted_CPCe_Annotations.csv')
+img = skimage.io.imread('MLC_image.png')
+sparse = pandas.read_csv('Formatted_CPCe_Annotations.csv') # X, Y, Labels
 
 mask = Fast_MSS(img, sparse, start_iter = 7500, end_iter = 80, num_iter = 20, method = 'mode')
 
