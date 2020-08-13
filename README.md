@@ -1,2 +1,3 @@
-# Converting-Sparse-into-Dense-Annotations
-Allows users to convert sparse point annotations into dense annotations both quickly and automatically.
+# Converting Sparse into Dense Annotations
+
+Fast Multilevel Superpixel Segmentation (Fast-MSS)
