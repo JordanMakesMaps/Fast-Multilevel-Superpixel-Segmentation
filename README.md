@@ -13,7 +13,7 @@ labels = ['Acrop', 'CCA', 'Macro', 'Monti', 'Off', 'Pavon', 'Pocill', 'Porit', '
 
 img = skimage.io.imread('MLC_example_1.png')
 sparse = pandas.read_csv('MLC_example_1.csv') 
-# format expected == columns['X', 'Y', 'Label']
+# format expected: columns = ['X', 'Y', 'Label']
 
 mask = fast_mss(img, sparse, labels, start_iter = 7500, end_iter = 80, num_iter = 20, method = 'mode')
 ```
