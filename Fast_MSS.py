@@ -96,8 +96,8 @@ def display(a, b):
     
 def compute_segmentations(start_iter, end_iter, num_iter):
     '''
-    Copied from Alonso et al. 2019 (CoralSeg)
-    This function calculated how many superpixels should be formed during each
+    From Alonso et al. 2019 (CoralSeg)
+    This function calculates how many superpixels should be formed during each
     iteration of Fast-MSS, and is dependent on parameters required from the user
     '''
     # value for determining how much to decrease by each iteration
@@ -106,7 +106,7 @@ def compute_segmentations(start_iter, end_iter, num_iter):
     # returns a list containing values in descending order
     return [int(start_iter * math.pow(reduction_factor, iters)) for iters in np.arange(num_iter)]
 
-def mode(a, NO_LABEL = 255, axis = 0):
+def mode(a, axis = 0):
 
     '''
     Scipy's code to calculate the statistical mode of an array
@@ -139,13 +139,36 @@ def mode(a, NO_LABEL = 255, axis = 0):
     return mostfrequent[0]
 
 def fast_mss(image, sparse, labels, start_iter, end_iter, num_iter, method = 'mode'):
-    
+
+    '''
+    The function used to create dense annotations from sparse. Requires the installation
+    of Fast-SLIC (could plug in other over-segmentation algorithsm quite easily though).
+    Takes in an image and the sparse annotations, and over multiple iterations segments
+    the image into some number of superpixels; during each iteration sparse labels are
+    propagated to pixel associated with a superpixel that the label in located within.
+    This occurs over multiple iterations where the number of superpixels changes from
+    high (small superpixels) to low (large superpixels). Once these are made 
+    (H, W, num_iterations), they are combined by a 'join' or by calculating the 'mode' 
+    across the 3rd dimension. The final result is a set of dense annotations for the 
+    image.
+
+    image           --> the input image, (smaller makes it go faster obvs)
+    sparse          --> a set of sparse labels for image, pandas df with columns [X, Y, Label]
+    labels          --> a list containing all possible labels in dataset
+    start_iter      --> larger number denoting how many superpixels should be formed in start 
+    end_iter        --> smaller number denoting how many superpixels should be formed in end 
+    num_iter        --> total number of iterations; higher makes better results, but takes longer
+    method          --> the method of combining labels from each iteration; 'join' or 'mode'
+    '''
+    # stores all masks from each iteration, 
+    # how many superpixels to be formed each iteration
     all_masks = []
     segmentations = compute_segmentations(start_iter, end_iter, num_iter)
 
     # Loops through, each time a mask is created with different settings, and is accumulated
     for _ in range(num_iter):
         
+        # number of superpixels this iteration
         n_segments = segmentations[_]
     
         # Uses CPU to create segmented image with current params
@@ -174,12 +197,13 @@ def fast_mss(image, sparse, labels, start_iter, end_iter, num_iter, method = 'mo
                 most_common_label_in = max(set(labels_of_annotations), key = labels_of_annotations.count)
                 CL[annotations_in_segment] = most_common_label_in
         
-        # Lastly, combine them into a dictionary, which speeds up the the next process by 50%
+        # Lastly, reform them as a dictionary to speed up the the next process by 50%
         pairs = dict(zip(DS, CL))
 
-        # temporary mask that holds the labels for each superpixel
+        # temporary mask that holds the labels for each superpixel during this iteration
         mask = np.full(shape = image.shape[0:2], fill_value = NO_LABEL)
 
+        # Loops through values in segmented mask (as a dict), gets labels, stores in 2D array
         for index, segVal in enumerate(list(pairs)):
             mask[segmented_image == segVal] = pairs[list(pairs)[index]]
             # provides each individual pixel with the class label of the superpixel
@@ -187,7 +211,10 @@ def fast_mss(image, sparse, labels, start_iter, end_iter, num_iter, method = 'mo
         # Collects all masks made of this image for all iterations
         all_masks.append(mask)
         
-        # helps stave of memory allocation errors
+        # helps stave of out of memory errors
+        # for a large number of images of high resolution
+        # may want to clean memory often, restart kernel, or 
+        # run from command line using a bash script
         gc.collect()
                     
     # Now that the loop is over, we have a bunch of segmented images where there are
@@ -246,7 +273,7 @@ def get_scores(ground_truth_files, prediction_files, labels):
     Macro and Weighted averages match those output by SciKit-Learn
 
     Takes in all the ground_truth and prediction files as two seperate lists containing
-    the file paths, opens each one and compares the two by calculating a confusion matrix
+    the file paths, opens each one, and then compares them collectively calculating a confusion matrix
     From the matrix other metrics are calculated (i.e. globally)
 
     ground_truth_files   --> a list containing the absolute paths of each ground_truth image file
