@@ -28,6 +28,15 @@ A more detailed example can be found in `Notebooks`
 
 ![](Example_Images/MLC_Example.png)
 
+## Requirements
+* cv2
+* numpy
+* pandas
+* skimage
+* matplotlib
+* seaborn
+* fast_slic
+
 ### References
 1.  J. Pierce, Y. Rzhanov, K. Lowell, J. Dijkstra, “Reducing Annotation Times: Semantic Segmentation of Coral Reef Imagery”, 2020 IEEE Global Oceans.
 2.  I. Alonso, M. Yuval, G. Eyal, T. Treibitz, and A. C. Murillo, Multilevel Superpixel Segmentation, GitHub repository, https://github.com/Shathe/ML-Superpixels
