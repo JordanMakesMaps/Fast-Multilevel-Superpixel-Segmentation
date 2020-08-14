@@ -15,7 +15,7 @@ img = skimage.io.imread('MLC_example_1.png')
 sparse = pandas.read_csv('MLC_example_1.csv') 
 # format expected == columns['X', 'Y', 'Label']
 
-mask = Fast_MSS(img, sparse, labels, start_iter = 7500, end_iter = 80, num_iter = 20, method = 'mode')
+mask = fast_mss(img, sparse, labels, start_iter = 7500, end_iter = 80, num_iter = 20, method = 'mode')
 ```
 A more detailed example can be found in `Notebooks`
 
