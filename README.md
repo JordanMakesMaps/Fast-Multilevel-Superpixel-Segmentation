@@ -8,12 +8,12 @@ The main advantages of Fast-MSS over MSS are:
 
 The code can be used as easily as:
 ```python
-LABELS = [] # Must include all possible class labels
+labels = ['car', 'person', 'sidewalk', 'building', 'void'] # Must include all possible class labels
 
 img = skimage.io.imread('MLC_image.png')
-sparse = pandas.read_csv('Formatted_CPCe_Annotations.csv') # X, Y, Labels
+sparse = pandas.read_csv('Sparse_Annotations.csv') # format == columns['X', 'Y', 'Label']
 
-mask = Fast_MSS(img, sparse, start_iter = 7500, end_iter = 80, num_iter = 20, method = 'mode')
+mask = Fast_MSS(img, sparse, labels, start_iter = 7500, end_iter = 80, num_iter = 20, method = 'mode')
 
 ```
 A more detailed example can be found in `Notebooks`
