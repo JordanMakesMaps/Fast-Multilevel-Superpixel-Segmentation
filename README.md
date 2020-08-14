@@ -3,7 +3,7 @@
 Fast-MSS [1] is an improvement to [MSS](https://github.com/Shathe/ML-Superpixels), which was developed in [2] for the purpose of converting the existing sparse annotations for an image into dense annotations automatically. Fast-MSS is written entirely in Python and offers an easy-to-use API. 
 
 The main advantages of Fast-MSS over MSS are:
-1.	Instead of joining the labels made during each iteration, Fast-MSS calculates the mode of class labels across all iterations;
+1.	Instead of joining the segmentation masks made from each iteration, it was found that by calculating the mode of class labels across all iterations the accuracy of the resulting dense annotations are comparable or better;
 2.	For an over-segmentation algorithm, [Fast-SLIC](https://github.com/Algy/fast-slic) is used, which includes optimization techniques for use on a common CPU allowing it to perform 10x-33x faster than the conventional implementation [3]. 
 
 The code can be used as easily as:
