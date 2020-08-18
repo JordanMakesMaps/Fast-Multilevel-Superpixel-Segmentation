@@ -21,7 +21,7 @@ A more detailed example can be found in `Notebooks`
 
 ### Tips
 * **Speed Boost:** Resizing the dimensions of images increases the speed of Fast-MSS without significantly affecting the accuracy of the resulting mask; remember to always use nearest neighbor interpolation when resizing masks.
-* The best values for the parameters `start_iter`, `end_iter`, and `num_iter` are a differ based of the resolution of the image and number of sparse annotations provided (try different values for different datasets).
+* The best values for the parameters `start_iter`, `end_iter`, and `num_iter` differ based of the resolution of the image and number of sparse annotations provided; try different values for different datasets.
 * **Power Move:** Having more sparse annotations increases the quailty of Fast-MSS output; to increase the number of sparse annotations associated with each image, consider training a patch-based image classifier on any existing annotations and then use *it* to add additional annotations for you [1].
 * **Next Level:** With enough images/dense annotations, look into training a [deep learning semantic segmentation algorithm](https://github.com/qubvel/segmentation_models) [4] so you won't need to produce sparse annotations for images collected in the future. 
 
