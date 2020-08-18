@@ -99,6 +99,9 @@ def compute_segmentations(start_iter, end_iter, num_iter):
     From Alonso et al. 2019 (CoralSeg)
     This function calculates how many superpixels should be formed during each
     iteration of Fast-MSS, and is dependent on parameters required from the user
+    start_iter -> the larger value (1,000 - 10,000)
+    end_iter   -> the smaller value (10 -  1,000
+    num_iter   -> number of total iterations; more tends to be better, but takes longer (20 - 50)
     '''
     # value for determining how much to decrease by each iteration
     reduction_factor = math.pow(float(end_iter) / start_iter, 1. / (num_iter - 1))
@@ -113,6 +116,7 @@ def mode(a, axis = 0):
     Here we include the ability to input a NULL value that should be ignored
     So in no situation should an index in the resulting dense annotations contain
     the background/NULL value.
+    a -> the stack containing multiple 2-d arrays with the same dimensions
     '''
 
     a = np.array(a)
@@ -251,6 +255,7 @@ def decompose_matrix(matrix):
 
     '''
     Helper function for decomposing the confusion matrix
+    matrix -> confusion matrix as a numpy array
     '''
 
     TP = np.diag(matrix);
