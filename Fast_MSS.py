@@ -75,7 +75,7 @@ def colorize_prediction(mask, labels):
             colored_mask[mask == _] = cp[_]
         
     # returns a numpy array, (H, W, 3), [0, 1]
-    return colored_mask
+    return colored_mask / 255.0
 
 def display(a, b):
 
@@ -109,7 +109,7 @@ def compute_segmentations(start_iter, end_iter, num_iter):
     # returns a list containing values in descending order
     return [int(start_iter * math.pow(reduction_factor, iters)) for iters in np.arange(num_iter)]
 
-def mode(a, axis = 0):
+def mode(a, null_value = NO_LABEL, axis = 0):
 
     '''
     Scipy's code to calculate the statistical mode of an array
@@ -130,7 +130,7 @@ def mode(a, axis = 0):
 
         # if the mode is a null value,
         # use the second most common value instead
-        if(score == NO_LABEL):
+        if(score == null_value):
             continue
 
         template = (a == score)                                 
