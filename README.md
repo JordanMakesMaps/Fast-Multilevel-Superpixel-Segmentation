@@ -28,7 +28,7 @@ A more detailed example can be found in `Notebooks`
 * **Power Move:** Having more sparse annotations increases the quailty of Fast-MSS output; to increase the number of sparse annotations associated with each image, consider training a patch-based image classifier on any existing annotations and then use *it* to add additional annotations for you [1].
 * **Next Level:** With enough images/dense annotations, look into training a [deep learning semantic segmentation algorithm](https://github.com/qubvel/segmentation_models) [4] so you won't need to produce sparse annotations for images collected in the future. 
 
-## Requirements
+### Requirements
 * cv2
 * numpy
 * pandas
