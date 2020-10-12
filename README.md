@@ -45,3 +45,5 @@ A more detailed example can be found in `Notebooks`
 
 ### To do list:
 * Create a complete tutorial via Jupyter Notebook
+* Create a command-line interface 
+* Create an anaconda environment clone
