@@ -42,8 +42,3 @@ A more detailed example can be found in `Notebooks`
 2.  I. Alonso, M. Yuval, G. Eyal, T. Treibitz, and A. C. Murillo, Multilevel Superpixel Segmentation, GitHub repository, https://github.com/Shathe/ML-Superpixels
 3.  K. Alchan, Fast-SLIC, (2019), GitHub repository, https://github.com/Algy/fast-slic
 4.  P. Yakubovskiy, Segmentation Models, (2019), GitHub Repository, https://github.com/qubvel/segmentation_models
-
-### To do list:
-* Create a complete tutorial via Jupyter Notebook
-* Create a command-line interface 
-* Create an anaconda environment clone
