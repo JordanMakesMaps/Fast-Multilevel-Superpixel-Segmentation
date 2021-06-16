@@ -75,7 +75,7 @@ def colorize_prediction(mask, labels):
             colored_mask[mask == _] = cp[_]
         
     # returns a numpy array, (H, W, 3), [0, 1]
-    return colored_mask / 255.0
+    return colored_mask
 
 def display(a, b):
 
